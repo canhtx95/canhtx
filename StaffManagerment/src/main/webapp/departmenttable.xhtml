@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Staff_department</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<h:form rendered="#{departmentBean.departmentFunction() == null}">
+		<h1>DEPARTMENT TABLE</h1>
+	<h:commandButton value="Back Home" type="Submit">
+	<f:ajax render="@all" listener ="#{home.setControlNumber(0)}"/>
+	</h:commandButton>
+
+		<h:dataTable value="#{departmentBean.listDepartment()}" var="x"
+			border="2">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{x.idDepartment}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:commandLink value="#{x.nameDepartment}" style="text-decoration: none; color: black;">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment(x.idDepartment)}"> </f:ajax>
+				</h:commandLink>
+			</h:column>
+				<h:column>
+				<f:facet name="header">Manager's Name</f:facet>
+				<h:commandLink value="#{x.nameCod}" style="text-decoration: none; color: black;">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment(x.idDepartment)}"> </f:ajax>
+				</h:commandLink>
+			</h:column>
+				<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:commandLink value="#{x.email}" style="text-decoration: none; color: black;">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment(x.idDepartment)}"> </f:ajax>
+				</h:commandLink>
+			</h:column>
+				<h:column>
+				<f:facet name="header">Phone</f:facet>
+				<h:commandLink value="#{x.phone}" style="text-decoration: none; color: black;">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment(x.idDepartment)}"> </f:ajax>
+				</h:commandLink>
+			</h:column>
+				<h:column>
+				<h:commandLink value="delete" >
+					<f:ajax render="@all" listener="#{departmentBean.deleteDepartment(x.idDepartment)}"> </f:ajax>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+				<h:commandButton  value="AddOne ">
+			<f:ajax render="@all" listener="#{departmentBean.addButton()}" />
+		</h:commandButton>
+		<br></br>
+	</h:form>
+
+
+	<h:form rendered="#{departmentBean.departmentFunction() != null}">
+	
+		<h1>#{departmentBean.title()}</h1>
+		
+	Department's Name : <h:inputText
+			value="#{departmentBean.departmentFunction().nameDepartment}" >
+			<f:ajax render="@all" excute="@all" listener="#{departmentBean.addOneDepartment()}" />
+			</h:inputText>
+		<br></br>
+	Manager's Name:	
+	 <h:inputText value="#{departmentBean.departmentFunction().nameCod}" >
+			<f:ajax render="@all" excute="@all" listener="#{departmentBean.addOneDepartment()}" />
+			</h:inputText>
+		<br></br>
+	Email :	
+	 <h:inputText value="#{departmentBean.departmentFunction().email}" >
+			<f:ajax render="@all" excute="@all" listener="#{departmentBean.addOneDepartment()}" />
+			</h:inputText>
+		<br></br>
+	Phone :
+	 <h:inputText value="#{departmentBean.departmentFunction().phone}" >
+			<f:ajax render="@all" excute="@all" listener="#{departmentBean.addOneDepartment()}" />
+			</h:inputText>
+		<br></br>	
+		
+		<h:commandButton value="Back" >
+			<f:ajax render="@all" listener="#{departmentBean.backButton()}" />
+		</h:commandButton>
+		<br />
+	</h:form>
+
+</h:body>
+</html>

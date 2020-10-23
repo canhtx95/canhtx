@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD Web 
+     Application 2.3//EN' 'http://java.sun.com/dtd/web-app_2_3.dtd'>
+
+<web-app>
+	<context-param>
+        <param-name>javax.faces.Production</param-name>
+        <param-value>Development</param-value>
+   </context-param>
+
+    <servlet>
+        <servlet-name>jsf-servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>jsf-servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <welcome-file-list>
+    	<welcome-file> stafftable.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app> 

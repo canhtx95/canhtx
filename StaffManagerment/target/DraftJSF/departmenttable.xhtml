@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Staff_department</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<h:form rendered="#{departmentBean.check == 0}">
+		<h1>DEPARTMENT TABLE</h1>
+		<h:commandButton action="home" value="Home">
+			<f:ajax render="@all" />
+		</h:commandButton>
+		
+		<h:commandButton action="#{departmentBean.preAddOneDepartment()}"
+			value="AddOne ">
+			<f:ajax render="@all" listener="#{departmentBean.setCheck(1)}" />
+		</h:commandButton>
+
+		<h:dataTable value="#{departmentBean.listDepartment}" var="x"
+			border="2">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{x.idDepartment}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:commandLink action="#{departmentBean.setCheck(2)}"
+					value="#{x.nameDepartment}"
+					style="text-decoration: none; color: black;">
+
+					<f:ajax render="@all"
+						listener="#{departmentBean.getCurrentDepartment(x.idDepartment)}">
+					</f:ajax>
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+		<br></br>
+
+	</h:form>
+
+
+
+
+	<h:form rendered="#{departmentBean.check == 1 }">
+		<h1>ADD DEPARTMENT</h1>
+		
+	Name of Department: <h:inputText
+			value="#{departmentBean.departmentFunction.nameDepartment}" >
+			<f:ajax render="@all" excute="@all" listener="#{departmentBean.addOneDepartment()}" />
+			</h:inputText>
+		<br></br>
+		
+		<h:commandButton value="Back" action="#{departmentBean.deleteEmptyName()}">
+			<f:ajax render="@all" listener="#{departmentBean.setCheck(0)}" />
+		</h:commandButton>
+		<br />
+	</h:form>
+
+
+
+
+	<h:form rendered="#{departmentBean.check == 2}">
+		<h1>DETAILS DEPARTMENT</h1>
+		<h:dataTable value="#{departmentBean.departmentFunction}" var="x"
+			border="2">
+		<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{x.idDepartment}" />
+
+			</h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:commandLink action="#{departmentBean.setCanEdit(true)}" value="#{x.nameDepartment}" rendered="#{not departmentBean.canEdit}"
+					style="text-decoration: none; color: black;">
+				</h:commandLink>
+				<h:inputText value="#{x.nameDepartment}" rendered="#{departmentBean.canEdit}">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment()}" > </f:ajax>
+				</h:inputText>
+			</h:column>
+		<h:column>
+				<f:facet name="header">Manager's Name</f:facet>
+				<h:commandLink action="#{departmentBean.setCanEdit(true)}" value="#{x.nameCod}" rendered="#{not departmentBean.canEdit}"
+					style="text-decoration: none; color: black;">
+				</h:commandLink>
+				<h:inputText value="#{x.nameCod}" rendered="#{departmentBean.canEdit}">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment()}" > </f:ajax>
+				</h:inputText>
+			</h:column>
+		<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:commandLink action="#{departmentBean.setCanEdit(true)}" value="#{x.email}" rendered="#{not departmentBean.canEdit}"
+					style="text-decoration: none; color: black;">
+				</h:commandLink>
+				<h:inputText value="#{x.email}" rendered="#{departmentBean.canEdit}">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment()}" > </f:ajax>
+				</h:inputText>
+			</h:column>
+		<h:column>
+				<f:facet name="header">Phone Number</f:facet>
+				<h:commandLink action="#{departmentBean.setCanEdit(true)}" value="#{x.phone}" rendered="#{not departmentBean.canEdit}"
+					style="text-decoration: none; color: black;">
+				</h:commandLink>
+				<h:inputText value="#{x.phone}" rendered="#{departmentBean.canEdit}">
+					<f:ajax render="@all" listener="#{departmentBean.updateDepartment()}" > </f:ajax>
+				</h:inputText>
+			</h:column>	
+		</h:dataTable>
+		<br></br>
+		
+		
+		<h:commandButton value="Delete"
+			action="#{departmentBean.deleteDepartment(departmentBean.departmentFunction.idDepartment)}">
+			<f:ajax render="@all" listener="#{departmentBean.setCheck(0)}" />
+		</h:commandButton>
+		
+		<h:commandButton value="Back" action="#{departmentBean.setCanEdit(false)}">
+			<f:ajax render="@all" listener="#{departmentBean.setCheck(0)}" />
+		</h:commandButton>
+	</h:form>
+
+</h:body>
+</html>

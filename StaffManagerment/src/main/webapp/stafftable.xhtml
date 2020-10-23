@@ -1,0 +1,99 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/jsf/html "
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Staff Tables Infomation</title>
+</h:head>
+<h:body>
+
+	<h:form id="form" rendered="#{staffBean.staffFunction == null }">
+		<h1>STAFF TABLE </h1>
+
+		<h:dataTable value="#{staffBean.list()}" var="x" border="2">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{x.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:commandLink value="#{x.name}"
+					style="text-decoration: none; color: black;">
+					<f:ajax render="@all" listener="#{staffBean.updateInfo(x.id)}"></f:ajax>
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Age</f:facet>
+				<h:outputText value="#{x.age}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Address</f:facet>
+				<h:outputText value="#{x.address}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Department</f:facet>
+				<h:outputText value="#{x.department}" />
+			</h:column>
+
+			<h:column>
+
+				<h:commandLink  value="delete" > 
+				<f:ajax render="@all" listener="#{staffBean.delete(x.id)}"></f:ajax>
+				</h:commandLink>
+			</h:column>
+
+		</h:dataTable>
+
+	<br></br>
+	<h:commandButton value="Back Home" type="Submit">
+	<f:ajax render="@all" listener ="#{home.setControlNumber(0)}"/>
+	</h:commandButton>
+
+		<h:commandButton value="Add One">
+			<f:ajax render="@all" listener="#{staffBean.creatSlotDataBase()}"></f:ajax>
+		</h:commandButton>
+	</h:form>
+
+	<h:form rendered="#{staffBean.staffFunction != null }">
+		<h1>#{staffBean.title()}</h1>
+		<br></br>
+	Name:
+	<h:inputText value="#{staffBean.staffFunction.name}">
+			<f:ajax render="@all" listener="#{staffBean.addStaffTable()}"
+				execute="@all"></f:ajax>
+		</h:inputText>
+		<br></br>
+	Age:
+	<h:inputText value="#{staffBean.staffFunction.age}">
+			<f:ajax render="@all" listener="#{staffBean.addStaffTable()}"
+				execute="@all"></f:ajax>
+		</h:inputText>
+		<br></br>
+	Address:
+	<h:inputText value="#{staffBean.staffFunction.address}">
+			<f:ajax render="@all" listener="#{staffBean.addStaffTable()}"
+				execute="@all"></f:ajax>
+		</h:inputText>
+		<br></br>
+	Department :
+	<h:selectOneMenu value="#{staffBean.staffFunction.department}">
+	<f:selectItem itemValue="Marketing" />
+	<f:selectItem itemValue="Production" />
+	<f:selectItem itemValue="Security" />
+	<f:selectItem itemValue="Account" />
+	<f:selectItem itemValue="Personnel" />
+	<f:ajax render="@all" listener="#{staffBean.addStaffTable()}"
+				execute="@all"></f:ajax>
+	</h:selectOneMenu>
+<h:commandButton value="Back" >
+<f:ajax render="@all" listener="#{staffBean.backStaffTable()}"></f:ajax>
+</h:commandButton>
+
+	</h:form>
+
+
+</h:body>
+</html>

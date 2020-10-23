@@ -1,0 +1,22 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/jsf/html "
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Facelets Hello Response</title>
+</h:head>
+<h1>STAFF TABLE</h1>
+<h:body>
+	<h:form id="home">
+		<h:commandButton value="Show Staff Table" action="stafftable" >
+		<f:ajax render="home"> </f:ajax>
+		</h:commandButton>
+		<h:commandButton value="Show Department Table" action="departmenttable" >
+		<f:ajax render="home"> </f:ajax>
+		</h:commandButton>
+		
+	</h:form>
+</h:body>
+</html>
